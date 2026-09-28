@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Reviews | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f8f5ef;
+            color: #263238;
+        }
+
+
+        /* =========================
+           REVIEW HERO
+        ========================= */
+
+        .review-hero {
+
+            width: 100%;
+
+            background:
+                linear-gradient(
+                    100deg,
+                    #203d4d,
+                    #315c67
+                );
+
+            color: white;
+
+            padding: 70px 25px 85px;
+
+            text-align: center;
+        }
+
+        .review-hero small {
+
+            color: #d9c7a1;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .review-hero h1 {
+
+            margin: 14px 0;
+
+            font-size: 46px;
+
+            line-height: 1.15;
+        }
+
+        .review-hero p {
+
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #dce7eb;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
+
+        .reviews-container {
+
+            width: 90%;
+
+            max-width: 1100px;
+
+            margin: -45px auto 80px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================
+           RATING SUMMARY
+        ========================= */
+
+        .rating-summary {
+
+            background: white;
+
+            display: grid;
+
+            grid-template-columns: 220px 1fr;
+
+            gap: 40px;
+
+            padding: 35px 40px;
+
+            box-shadow:
+                0 12px 35px rgba(30, 45, 55, .10);
+
+            margin-bottom: 35px;
+        }
+
+        .overall-rating {
+
+            text-align: center;
+
+            border-right: 1px solid #e5e0d8;
+
+            padding-right: 30px;
+        }
+
+        .overall-number {
+
+            color: #203d4d;
+
+            font-size: 55px;
+
+            font-weight: 700;
+
+            line-height: 1;
+        }
+
+        .overall-stars {
+
+            margin: 10px 0;
+
+            color: #c39a3d;
+
+            font-size: 22px;
+
+            letter-spacing: 2px;
+        }
+
+        .overall-rating p {
+
+            margin: 0;
+
+            color: #7a858c;
+
+            font-size: 13px;
+        }
+
+
+        /* RATING BARS */
+
+        .rating-bars {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+        .rating-row {
+
+            display: grid;
+
+            grid-template-columns: 45px 1fr 40px;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #667085;
+
+            font-size: 13px;
+        }
+
+        .bar {
+
+            height: 7px;
+
+            background: #eee9df;
+
+            overflow: hidden;
+        }
+
+        .bar span {
+
+            display: block;
+
+            height: 100%;
+
+            background: #c39a3d;
+        }
+
+
+        /* =========================
+           WRITE REVIEW
+        ========================= */
+
+        .review-form-section {
+
+            background: white;
+
+            padding: 40px;
+
+            margin-bottom: 35px;
+
+            border-top: 4px solid #c39a3d;
+
+            box-shadow:
+                0 8px 25px rgba(30, 45, 55, .07);
+        }
+
+        .review-form-section h2 {
+
+            margin: 0 0 8px;
+
+            color: #203d4d;
+
+            font-size: 27px;
+        }
+
+        .review-form-section > p {
+
+            margin: 0 0 28px;
+
+            color: #7a858c;
+
+            font-size: 14px;
+        }
+
+
+        /* FORM */
+
+        .form-row {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 18px;
+        }
+
+        .form-group {
+
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            color: #35434c;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+
+            width: 100%;
+
+            padding: 13px 14px;
+
+            border: 1px solid #d8d4cc;
+
+            background: #fff;
+
+            color: #263238;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+        }
+
+        .form-group textarea {
+
+            min-height: 120px;
+
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+
+            border-color: #315c67;
+
+            box-shadow:
+                0 0 0 3px rgba(49,92,103,.08);
+        }
+
+
+        /* STAR SELECTOR */
+
+        .star-rating {
+
+            display: flex;
+
+            flex-direction: row-reverse;
+
+            justify-content: flex-end;
+
+            gap: 3px;
+        }
+
+        .star-rating input {
+
+            display: none;
+        }
+
+        .star-rating label {
+
+            cursor: pointer;
+
+            color: #d5d0c7;
+
+            font-size: 30px;
+
+            transition: .15s;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label,
+        .star-rating input:checked ~ label {
+
+            color: #c39a3d;
+        }
+
+
+        /* BUTTON */
+
+        .submit-review {
+
+            padding: 13px 28px;
+
+            border: none;
+
+            background: #203d4d;
+
+            color: white;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .submit-review:hover {
+
+            background: #315c67;
+        }
+
+
+        /* =========================
+           CUSTOMER REVIEWS
+        ========================= */
+
+        .customer-section {
+
+            margin-top: 45px;
+        }
+
+        .customer-heading {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            margin-bottom: 22px;
+        }
+
+        .customer-heading h2 {
+
+            margin: 0;
+
+            color: #203d4d;
+
+            font-size: 28px;
+        }
+
+        .customer-heading p {
+
+            margin: 0;
+
+            color: #7a858c;
+
+            font-size: 13px;
+        }
+
+
+        /* REVIEW GRID */
+
+        .review-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 22px;
+        }
+
+        .review-card {
+
+            background: white;
+
+            padding: 28px;
+
+            border: 1px solid #e7e2d9;
+
+            box-shadow:
+                0 7px 20px rgba(30,45,55,.05);
+        }
+
+        .review-top {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 18px;
+        }
+
+        .review-stars {
+
+            color: #c39a3d;
+
+            letter-spacing: 2px;
+
+            font-size: 16px;
+        }
+
+        .review-date {
+
+            color: #98a0a6;
+
+            font-size: 12px;
+        }
+
+        .review-card h3 {
+
+            margin: 0 0 7px;
+
+            color: #203d4d;
+
+            font-size: 17px;
+        }
+
+        .review-destination {
+
+            color: #1677c8;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            margin-bottom: 14px;
+        }
+
+        .review-card p {
+
+            margin: 0;
+
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.75;
+        }
+
+
+        /* =========================
+           FOOTER NOTE
+        ========================= */
+
+        .review-note {
+
+            text-align: center;
+
+            margin-top: 45px;
+
+            color: #7a858c;
+
+            font-size: 13px;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .review-hero h1 {
+                font-size: 36px;
+            }
+
+            .rating-summary {
+                grid-template-columns: 1fr;
+            }
+
+            .overall-rating {
+                border-right: none;
+                border-bottom: 1px solid #e5e0d8;
+                padding-right: 0;
+                padding-bottom: 25px;
+            }
+
+            .review-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .review-form-section {
+                padding: 28px 22px;
+            }
+
+            .rating-summary {
+                padding: 28px 22px;
+            }
+
+            .customer-heading {
+                display: block;
+            }
+
+            .customer-heading p {
+                margin-top: 7px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/packages">
+            Packages
+        </a>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/reviews">
+            Reviews
+        </a>
+
+        <a href="/contact">
+            Contact
+        </a>
+
+        <a href="/about">
+            About
+        </a>
+
+        <a href="/faq">
+            FAQ
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="review-hero">
+
+    <small>
+        Traveller Experiences
+    </small>
+
+    <h1>
+        Reviews & Ratings
+    </h1>
+
+    <p>
+        Real experiences from travellers who
+        booked their journeys with TravelBook.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="reviews-container">
+
+
+    <!-- RATING SUMMARY -->
+
+    <section class="rating-summary">
+
+
+        <div class="overall-rating">
+
+            <div class="overall-number">
+                4.8
+            </div>
+
+            <div class="overall-stars">
+                ★★★★★
+            </div>
+
+            <p>
+                Based on 128 traveller reviews
+            </p>
+
+        </div>
+
+
+        <div class="rating-bars">
+
+            <div class="rating-row">
+
+                <span>
+                    5 ★
+                </span>
+
+                <div class="bar">
+                    <span style="width:82%;"></span>
+                </div>
+
+                <span>
+                    82%
+                </span>
+
+            </div>
+
+
+            <div class="rating-row">
+
+                <span>
+                    4 ★
+                </span>
+
+                <div class="bar">
+                    <span style="width:13%;"></span>
+                </div>
+
+                <span>
+                    13%
+                </span>
+
+            </div>
+
+
+            <div class="rating-row">
+
+                <span>
+                    3 ★
+                </span>
+
+                <div class="bar">
+                    <span style="width:4%;"></span>
+                </div>
+
+                <span>
+                    4%
+                </span>
+
+            </div>
+
+
+            <div class="rating-row">
+
+                <span>
+                    2 ★
+                </span>
+
+                <div class="bar">
+                    <span style="width:1%;"></span>
+                </div>
+
+                <span>
+                    1%
+                </span>
+
+            </div>
+
+
+            <div class="rating-row">
+
+                <span>
+                    1 ★
+                </span>
+
+                <div class="bar">
+                    <span style="width:0%;"></span>
+                </div>
+
+                <span>
+                    0%
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- WRITE REVIEW -->
+
+    <section class="review-form-section">
+
+        <h2>
+            Share your experience
+        </h2>
+
+        <p>
+            Tell other travellers about your TravelBook journey.
+        </p>
+
+
+        <form
+            onsubmit="submitReview(event)"
+        >
+
+
+            <div class="form-row">
+
+
+                <div class="form-group">
+
+                    <label>
+                        Your Name
+                    </label>
+
+                    <input
+                        type="text"
+                        placeholder="Enter your name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Destination
+                    </label>
+
+                    <select required>
+
+                        <option value="">
+                            Select destination
+                        </option>
+
+                        <option>
+                            Goa
+                        </option>
+
+                        <option>
+                            Manali
+                        </option>
+
+                        <option>
+                            Kerala
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Your Rating
+                </label>
+
+                <div class="star-rating">
+
+                    <input
+                        type="radio"
+                        id="star5"
+                        name="rating"
+                        value="5"
+                        required
+                    >
+
+                    <label for="star5">
+                        ★
+                    </label>
+
+
+                    <input
+                        type="radio"
+                        id="star4"
+                        name="rating"
+                        value="4"
+                    >
+
+                    <label for="star4">
+                        ★
+                    </label>
+
+
+                    <input
+                        type="radio"
+                        id="star3"
+                        name="rating"
+                        value="3"
+                    >
+
+                    <label for="star3">
+                        ★
+                    </label>
+
+
+                    <input
+                        type="radio"
+                        id="star2"
+                        name="rating"
+                        value="2"
+                    >
+
+                    <label for="star2">
+                        ★
+                    </label>
+
+
+                    <input
+                        type="radio"
+                        id="star1"
+                        name="rating"
+                        value="1"
+                    >
+
+                    <label for="star1">
+                        ★
+                    </label>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Your Review
+                </label>
+
+                <textarea
+                    placeholder="Share your travel experience..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-review"
+            >
+                Submit Review
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+    <!-- CUSTOMER REVIEWS -->
+
+    <section class="customer-section">
+
+
+        <div class="customer-heading">
+
+            <div>
+
+                <h2>
+                    Traveller stories
+                </h2>
+
+            </div>
+
+            <p>
+                Experiences shared by TravelBook customers
+            </p>
+
+        </div>
+
+
+        <div class="review-grid">
+
+
+            <!-- REVIEW 1 -->
+
+            <article class="review-card">
+
+                <div class="review-top">
+
+                    <div class="review-stars">
+                        ★★★★★
+                    </div>
+
+                    <div class="review-date">
+                        Recent
+                    </div>
+
+                </div>
+
+                <h3>
+                    Ashwini
+                </h3>
+
+                <div class="review-destination">
+                    Goa
+                </div>
+
+                <p>
+                    The booking process was simple and easy.
+                    I liked how all the trip information was
+                    available in one place.
+                </p>
+
+            </article>
+
+
+            <!-- REVIEW 2 -->
+
+            <article class="review-card">
+
+                <div class="review-top">
+
+                    <div class="review-stars">
+                        ★★★★☆
+                    </div>
+
+                    <div class="review-date">
+                        Recent
+                    </div>
+
+                </div>
+
+                <h3>
+                    TravelBook Customer
+                </h3>
+
+                <div class="review-destination">
+                    Kerala
+                </div>
+
+                <p>
+                    The destination information was useful and
+                    the booking experience was smooth and easy
+                    to understand.
+                </p>
+
+            </article>
+
+
+            <!-- REVIEW 3 -->
+
+            <article class="review-card">
+
+                <div class="review-top">
+
+                    <div class="review-stars">
+                        ★★★★★
+                    </div>
+
+                    <div class="review-date">
+                        Recent
+                    </div>
+
+                </div>
+
+                <h3>
+                    Happy Traveller
+                </h3>
+
+                <div class="review-destination">
+                    Manali
+                </div>
+
+                <p>
+                    A clean and straightforward experience.
+                    Finding a package and completing the booking
+                    was convenient.
+                </p>
+
+            </article>
+
+
+            <!-- REVIEW 4 -->
+
+            <article class="review-card">
+
+                <div class="review-top">
+
+                    <div class="review-stars">
+                        ★★★★★
+                    </div>
+
+                    <div class="review-date">
+                        Recent
+                    </div>
+
+                </div>
+
+                <h3>
+                    TravelBook Customer
+                </h3>
+
+                <div class="review-destination">
+                    Goa
+                </div>
+
+                <p>
+                    The website made it easy to compare
+                    destinations and keep track of my booking.
+                </p>
+
+            </article>
+
+        </div>
+
+
+        <div class="review-note">
+
+            Your feedback helps us improve the TravelBook experience.
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <h3>
+        TravelBook
+    </h3>
+
+    <p>
+        Explore. Experience. Remember.
+    </p>
+
+</footer>
+
+
+<script>
+
+function submitReview(event) {
+
+    event.preventDefault();
+
+    alert(
+        "Thank you for sharing your travel experience!"
+    );
+
+    event.target.reset();
+
+}
+
+</script>
+
+
+</body>
+
+</html>

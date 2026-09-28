@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | TravelBook</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f7;
+            color: #273b43;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 235px;
+            height: 100vh;
+            background: #173b52;
+            color: white;
+            padding: 28px 18px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            padding: 0 12px;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #d2b477;
+        }
+
+        .admin-label {
+            color: #9eb0b7;
+            font-size: 10px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0 12px;
+            margin-bottom: 12px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 13px 12px;
+            margin: 5px 0;
+            border-radius: 8px;
+            color: #d4e0e4;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .nav-item:hover,
+        .nav-item.active {
+            background: #285d70;
+            color: white;
+        }
+
+        .logout {
+            position: absolute;
+            bottom: 25px;
+            left: 18px;
+            right: 18px;
+            background: #244c60;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 235px;
+            padding: 30px 40px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .topbar h1 {
+            color: #173b52;
+            font-size: 29px;
+        }
+
+        .topbar p {
+            color: #7b858a;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        .admin-badge {
+            background: white;
+            border: 1px solid #e1e6e8;
+            padding: 10px 15px;
+            border-radius: 30px;
+            color: #52656c;
+            font-size: 13px;
+        }
+
+        /* STATS */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #e4e9eb;
+            border-radius: 13px;
+            padding: 22px;
+        }
+
+        .stat-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 9px;
+            background: #edf2f4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .stat-card h2 {
+            margin-top: 17px;
+            color: #173b52;
+            font-size: 28px;
+        }
+
+        .stat-card p {
+            margin-top: 4px;
+            color: #7b858a;
+            font-size: 12px;
+        }
+
+        /* SECTION */
+
+        .section {
+            background: white;
+            border: 1px solid #e4e9eb;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .section-header {
+            padding: 22px 24px;
+            border-bottom: 1px solid #edf0f1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            color: #173b52;
+            font-size: 19px;
+        }
+
+        .section-header span {
+            color: #8a9498;
+            font-size: 12px;
+        }
+
+        /* TABLE */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            background: #f8f9f9;
+            color: #647378;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            padding: 13px 20px;
+        }
+
+        td {
+            padding: 15px 20px;
+            border-top: 1px solid #edf0f1;
+            color: #40535b;
+            font-size: 13px;
+        }
+
+        tr:hover td {
+            background: #fbfcfc;
+        }
+
+        .booking-id {
+            font-weight: bold;
+            color: #173b52;
+        }
+
+        /* STATUS */
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .pending {
+            background: #fff4d9;
+            color: #916b20;
+        }
+
+        .confirmed {
+            background: #e5f5eb;
+            color: #287044;
+        }
+
+        .cancelled {
+            background: #fbe8e8;
+            color: #a44747;
+        }
+
+        /* ACTIONS */
+
+        .status-form {
+            display: flex;
+            gap: 7px;
+            align-items: center;
+        }
+
+        .status-form select {
+            height: 34px;
+            border: 1px solid #d9e0e2;
+            border-radius: 6px;
+            padding: 0 7px;
+            font-size: 11px;
+            background: white;
+        }
+
+        .update-btn {
+            height: 34px;
+            padding: 0 11px;
+            border: none;
+            border-radius: 6px;
+            background: #173b52;
+            color: white;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .update-btn:hover {
+            background: #285d70;
+        }
+
+        .delete-btn {
+            height: 34px;
+            padding: 0 10px;
+            border: none;
+            border-radius: 6px;
+            background: #f5e4e4;
+            color: #a44747;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        /* USERS */
+
+        .user-name {
+            font-weight: bold;
+            color: #173b52;
+        }
+
+        .user-email {
+            color: #8a9498;
+            font-size: 12px;
+            margin-top: 3px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 1000px) {
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 750px) {
+
+            .sidebar {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+
+            .logout {
+                position: static;
+                margin-top: 15px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 25px 18px;
+            }
+
+            .stats {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .topbar {
+                display: block;
+            }
+
+            .admin-badge {
+                display: inline-block;
+                margin-top: 15px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        Travel<span>Book</span>
+    </div>
+
+    <div class="admin-label">
+        Management
+    </div>
+
+    <a href="/admin/dashboard" class="nav-item active">
+        ▦ &nbsp; Dashboard
+    </a>
+
+    <a href="/admin/dashboard" class="nav-item">
+        ◷ &nbsp; Bookings
+    </a>
+
+    <a href="/admin/dashboard" class="nav-item">
+        ◉ &nbsp; Users
+    </a>
+
+    <a href="/" class="nav-item">
+        ↗ &nbsp; View Website
+    </a>
+
+    <a href="/logout" class="nav-item logout">
+        ← &nbsp; Logout
+    </a>
+
+</aside>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div>
+
+            <h1>Dashboard</h1>
+
+            <p>
+                Welcome back, Administrator. Here's what's happening today.
+            </p>
+
+        </div>
+
+        <div class="admin-badge">
+            🔐 Administrator
+        </div>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span>Users</span>
+
+                <div class="stat-icon">
+                    👤
+                </div>
+
+            </div>
+
+            <h2>
+                {{ users|length }}
+            </h2>
+
+            <p>
+                Registered users
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span>Bookings</span>
+
+                <div class="stat-icon">
+                    🧳
+                </div>
+
+            </div>
+
+            <h2>
+                {{ bookings|length }}
+            </h2>
+
+            <p>
+                Total bookings
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span>Pending</span>
+
+                <div class="stat-icon">
+                    ◷
+                </div>
+
+            </div>
+
+            <h2>
+                {{ bookings|selectattr("status", "equalto", "Pending")|list|length }}
+            </h2>
+
+            <p>
+                Awaiting confirmation
+            </p>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-top">
+
+                <span>Confirmed</span>
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+            </div>
+
+            <h2>
+                {{ bookings|selectattr("status", "equalto", "Confirmed")|list|length }}
+            </h2>
+
+            <p>
+                Confirmed trips
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- BOOKINGS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Recent Bookings
+            </h2>
+
+            <span>
+                {{ bookings|length }} total
+            </span>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>Traveller</th>
+                        <th>Destination</th>
+                        <th>Travel Date</th>
+                        <th>People</th>
+                        <th>Status</th>
+                        <th>Manage</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for booking in bookings %}
+
+                    <tr>
+
+                        <td class="booking-id">
+                            #{{ booking.id }}
+                        </td>
+
+
+                        <td>
+
+                            <strong>
+                                {{ booking.name }}
+                            </strong>
+
+                            <div class="user-email">
+                                {{ booking.email }}
+                            </div>
+
+                        </td>
+
+
+                        <td>
+                            {{ booking.destination }}
+                        </td>
+
+
+                        <td>
+                            {{ booking.date }}
+                        </td>
+
+
+                        <td>
+                            {{ booking.people }}
+                        </td>
+
+
+                        <td>
+
+                            {% if booking.status == "Confirmed" %}
+
+                                <span class="status confirmed">
+                                    Confirmed
+                                </span>
+
+                            {% elif booking.status == "Cancelled" %}
+
+                                <span class="status cancelled">
+                                    Cancelled
+                                </span>
+
+                            {% else %}
+
+                                <span class="status pending">
+                                    Pending
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <td>
+
+                            <div class="status-form">
+
+                                <form
+                                    method="POST"
+                                    action="/admin/update-status/{{ booking.id }}"
+                                    class="status-form"
+                                >
+
+                                    <select name="status">
+
+                                        <option
+                                            value="Pending"
+                                            {% if booking.status == "Pending" %}selected{% endif %}
+                                        >
+                                            Pending
+                                        </option>
+
+                                        <option
+                                            value="Confirmed"
+                                            {% if booking.status == "Confirmed" %}selected{% endif %}
+                                        >
+                                            Confirmed
+                                        </option>
+
+                                        <option
+                                            value="Cancelled"
+                                            {% if booking.status == "Cancelled" %}selected{% endif %}
+                                        >
+                                            Cancelled
+                                        </option>
+
+                                    </select>
+
+                                    <button
+                                        type="submit"
+                                        class="update-btn"
+                                    >
+                                        Update
+                                    </button>
+
+                                </form>
+
+
+                                <form
+                                    method="POST"
+                                    action="/admin/delete-booking/{{ booking.id }}"
+                                    onsubmit="return confirm('Delete this booking?');"
+                                >
+
+                                    <button
+                                        type="submit"
+                                        class="delete-btn"
+                                    >
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="7"
+                            style="text-align:center; padding:40px;"
+                        >
+                            No bookings found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- USERS -->
+
+    <section class="section">
+
+        <div class="section-header">
+
+            <h2>
+                Registered Users
+            </h2>
+
+            <span>
+                {{ users|length }} users
+            </span>
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>ID</th>
+                        <th>User</th>
+                        <th>Email</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                {% for user in users %}
+
+                    <tr>
+
+                        <td class="booking-id">
+                            #{{ user.id }}
+                        </td>
+
+                        <td class="user-name">
+                            {{ user.name }}
+                        </td>
+
+                        <td>
+                            {{ user.email }}
+                        </td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+
+                        <td
+                            colspan="3"
+                            style="text-align:center; padding:35px;"
+                        >
+                            No registered users.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</main>
+
+</body>
+</html>

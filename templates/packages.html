@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Travel Packages | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #f6f8fb;
+            color: #1f2937;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* HEADER */
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 7%;
+            background: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            color: #12355b;
+        }
+
+        header nav a {
+            color: #12355b;
+            margin-left: 28px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        header nav a:hover {
+            color: #1677c8;
+        }
+
+
+        /* PAGE HERO */
+
+        .packages-hero {
+            background:
+                linear-gradient(
+                    rgba(10,35,60,.68),
+                    rgba(10,35,60,.68)
+                ),
+                url("https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1800&q=85");
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 90px 20px;
+
+            text-align: center;
+            color: white;
+        }
+
+        .packages-hero small {
+            color: #dcecff;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .packages-hero h1 {
+            color: white;
+            font-size: 52px;
+            margin: 12px 0;
+        }
+
+        .packages-hero p {
+            color: white;
+            max-width: 650px;
+            margin: auto;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+
+        /* MAIN */
+
+        .packages-main {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 25px;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .section-heading small {
+            color: #1677c8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-heading h2 {
+            color: #12355b;
+            font-size: 36px;
+            margin: 10px 0;
+        }
+
+        .section-heading p {
+            color: #667085;
+            line-height: 1.7;
+        }
+
+
+        /* SEARCH */
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto 45px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 15px 18px;
+
+            border: 1px solid #d0d5dd;
+            border-radius: 8px;
+
+            font-size: 15px;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: #1677c8;
+            box-shadow: 0 0 0 3px rgba(22,119,200,.10);
+        }
+
+
+        /* CARDS */
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        .travel-card {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+
+            border: 1px solid #e5e7eb;
+
+            box-shadow: 0 7px 22px rgba(0,0,0,.07);
+
+            transition: .3s;
+        }
+
+        .travel-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 16px 35px rgba(0,0,0,.13);
+        }
+
+
+        /* CARD IMAGE */
+
+        .travel-image {
+            height: 230px;
+
+            background-size: cover;
+            background-position: center;
+
+            position: relative;
+        }
+
+        .goa {
+            background-image:
+                url("https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1000&q=85");
+        }
+
+        .manali {
+            background-image:
+                url("https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=85");
+        }
+
+        .kerala {
+            background-image:
+                url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1000&q=85");
+        }
+
+
+        /* TAG */
+
+        .destination-tag {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+
+            background: white;
+            color: #12355b;
+
+            padding: 7px 12px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+
+        /* CARD CONTENT */
+
+        .travel-content {
+            padding: 25px;
+        }
+
+        .travel-content h3 {
+            color: #12355b;
+            font-size: 25px;
+            margin: 0 0 10px;
+        }
+
+        .travel-content p {
+            color: #667085;
+            line-height: 1.6;
+            font-size: 14px;
+            min-height: 68px;
+        }
+
+
+        /* DETAILS */
+
+        .travel-details {
+            display: flex;
+            gap: 20px;
+
+            padding: 15px 0;
+
+            border-top: 1px solid #edf0f3;
+            border-bottom: 1px solid #edf0f3;
+
+            color: #667085;
+            font-size: 13px;
+        }
+
+        .travel-details span {
+            display: block;
+        }
+
+
+        /* PRICE */
+
+        .travel-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-top: 20px;
+        }
+
+        .price small {
+            display: block;
+            color: #98a2b3;
+            font-size: 10px;
+            letter-spacing: 1px;
+        }
+
+        .price strong {
+            color: #12355b;
+            font-size: 23px;
+        }
+
+
+        /* BUTTONS */
+
+        .card-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .details-button,
+        .book-button {
+            padding: 10px 13px;
+            border-radius: 6px;
+
+            font-size: 12px;
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .details-button {
+            color: #1677c8;
+            border: 1px solid #1677c8;
+            background: white;
+        }
+
+        .details-button:hover {
+            background: #eef7ff;
+        }
+
+        .book-button {
+            color: white;
+            background: #1677c8;
+            border: 1px solid #1677c8;
+        }
+
+        .book-button:hover {
+            background: #0e5f9f;
+        }
+
+
+        /* CTA */
+
+        .packages-cta {
+            margin-top: 75px;
+            padding: 55px 25px;
+
+            text-align: center;
+
+            background: #12355b;
+            border-radius: 16px;
+        }
+
+        .packages-cta h2 {
+            color: white;
+            font-size: 30px;
+            margin: 0 0 10px;
+        }
+
+        .packages-cta p {
+            color: #dce6f2;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 13px 25px;
+
+            background: #1677c8;
+            color: white;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: #0e5f9f;
+        }
+
+
+        /* FOOTER */
+
+        footer {
+            background: #0b2138;
+            color: white;
+            padding: 35px 20px;
+            margin-top: 60px;
+            text-align: center;
+        }
+
+        footer h3 {
+            color: white;
+        }
+
+        footer p {
+            color: #cbd5e1;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .packages-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                display: block;
+                text-align: center;
+            }
+
+            header nav {
+                margin-top: 15px;
+            }
+
+            header nav a {
+                margin: 0 7px;
+                font-size: 13px;
+            }
+
+            .packages-hero h1 {
+                font-size: 40px;
+            }
+
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .travel-bottom {
+                display: block;
+            }
+
+            .card-buttons {
+                margin-top: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+        <a href="/packages">Packages</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="packages-hero">
+
+    <small>
+        TRAVELBOOK DESTINATIONS
+    </small>
+
+    <h1>
+        Explore Our Packages
+    </h1>
+
+    <p>
+        Discover beautiful destinations, comfortable stays
+        and unforgettable experiences with TravelBook.
+    </p>
+
+</section>
+
+
+<!-- MAIN -->
+
+<main class="packages-main">
+
+
+    <div class="section-heading">
+
+        <small>
+            FIND YOUR PERFECT TRIP
+        </small>
+
+        <h2>
+            Popular Destinations
+        </h2>
+
+        <p>
+            Choose a destination and start planning
+            your next adventure.
+        </p>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="packageSearch"
+            placeholder="Search Goa, Manali, Kerala..."
+            onkeyup="searchPackages()"
+        >
+
+    </div>
+
+
+    <!-- PACKAGES -->
+
+    <div class="packages-grid" id="packagesGrid">
+
+
+        <!-- GOA -->
+
+        <div class="travel-card">
+
+            <div class="travel-image goa">
+
+                <span class="destination-tag">
+                    BEACH ESCAPE
+                </span>
+
+            </div>
+
+            <div class="travel-content">
+
+                <h3>
+                    Goa
+                </h3>
+
+                <p>
+                    Enjoy beautiful beaches, sightseeing
+                    and a relaxing holiday experience.
+                </p>
+
+                <div class="travel-details">
+
+                    <span>
+                        📅 3 Days / 2 Nights
+                    </span>
+
+                    <span>
+                        🏨 Hotel Stay
+                    </span>
+
+                </div>
+
+                <div class="travel-bottom">
+
+                    <div class="price">
+
+                        <small>
+                            STARTING FROM
+                        </small>
+
+                        <strong>
+                            ₹8,999
+                        </strong>
+
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <a
+                            href="/package/goa"
+                            class="details-button"
+                        >
+                            View Details
+                        </a>
+
+                        <a
+                            href="/booking"
+                            class="book-button"
+                        >
+                            Book Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- MANALI -->
+
+        <div class="travel-card">
+
+            <div class="travel-image manali">
+
+                <span class="destination-tag">
+                    MOUNTAIN ESCAPE
+                </span>
+
+            </div>
+
+            <div class="travel-content">
+
+                <h3>
+                    Manali
+                </h3>
+
+                <p>
+                    Explore mountains, snow, adventure
+                    and beautiful natural scenery.
+                </p>
+
+                <div class="travel-details">
+
+                    <span>
+                        📅 4 Days / 3 Nights
+                    </span>
+
+                    <span>
+                        🏨 Hotel Stay
+                    </span>
+
+                </div>
+
+                <div class="travel-bottom">
+
+                    <div class="price">
+
+                        <small>
+                            STARTING FROM
+                        </small>
+
+                        <strong>
+                            ₹12,999
+                        </strong>
+
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <a
+                            href="/package/manali"
+                            class="details-button"
+                        >
+                            View Details
+                        </a>
+
+                        <a
+                            href="/booking"
+                            class="book-button"
+                        >
+                            Book Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- KERALA -->
+
+        <div class="travel-card">
+
+            <div class="travel-image kerala">
+
+                <span class="destination-tag">
+                    NATURE ESCAPE
+                </span>
+
+            </div>
+
+            <div class="travel-content">
+
+                <h3>
+                    Kerala
+                </h3>
+
+                <p>
+                    Experience peaceful backwaters,
+                    greenery and beautiful nature.
+                </p>
+
+                <div class="travel-details">
+
+                    <span>
+                        📅 3 Days / 2 Nights
+                    </span>
+
+                    <span>
+                        🏨 Hotel Stay
+                    </span>
+
+                </div>
+
+                <div class="travel-bottom">
+
+                    <div class="price">
+
+                        <small>
+                            STARTING FROM
+                        </small>
+
+                        <strong>
+                            ₹10,999
+                        </strong>
+
+                    </div>
+
+                    <div class="card-buttons">
+
+                        <a
+                            href="/package/kerala"
+                            class="details-button"
+                        >
+                            View Details
+                        </a>
+
+                        <a
+                            href="/booking"
+                            class="book-button"
+                        >
+                            Book Now
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- CTA -->
+
+    <section class="packages-cta">
+
+        <h2>
+            Ready for Your Next Adventure?
+        </h2>
+
+        <p>
+            Choose your destination and start creating
+            unforgettable memories.
+        </p>
+
+        <a
+            href="/booking"
+            class="cta-button"
+        >
+            Start Your Booking →
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        TravelBook
+    </h3>
+
+    <p>
+        Explore • Travel • Experience
+    </p>
+
+    <p>
+        © 2026 Travel Package Booking
+    </p>
+
+</footer>
+
+
+<script>
+
+function searchPackages() {
+
+    let input =
+        document.getElementById("packageSearch")
+        .value
+        .toLowerCase();
+
+    let cards =
+        document.querySelectorAll(".travel-card");
+
+    cards.forEach(function(card) {
+
+        let text =
+            card.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+
+            card.style.display = "";
+
+        } else {
+
+            card.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        .payment-container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .payment-header {
+            background: #12355b;
+            color: white;
+            padding: 40px;
+            border-radius: 14px;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .payment-header h1 {
+            margin: 0 0 10px;
+            font-size: 36px;
+        }
+
+        .payment-header p {
+            color: #dce6f2;
+        }
+
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .payment-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 20px rgba(0,0,0,.07);
+        }
+
+        .payment-card h2 {
+            color: #12355b;
+            margin-top: 0;
+        }
+
+        .booking-summary {
+            background: #f6f8fb;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .summary-row strong {
+            color: #12355b;
+        }
+
+        .amount {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1677c8;
+        }
+
+        .payment-method {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .payment-method label {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #d0d5dd;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .payment-method input {
+            width: auto;
+            margin-right: 5px;
+        }
+
+        .pay-button {
+            width: 100%;
+            margin: 20px 0 0;
+            padding: 14px;
+            background: #1677c8;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .pay-button:hover {
+            background: #0e5f9f;
+        }
+
+        .secure-message {
+            text-align: center;
+            color: #667085;
+            font-size: 13px;
+            margin-top: 15px;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            color: #047857;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .payment-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .payment-header h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/packages">Packages</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+</header>
+
+
+<div class="payment-container">
+
+    <div class="payment-header">
+
+        <h1>Secure Payment</h1>
+
+        <p>
+            Complete your payment to confirm your travel booking.
+        </p>
+
+    </div>
+
+
+    <div class="payment-layout">
+
+
+        <!-- BOOKING SUMMARY -->
+
+        <div class="payment-card">
+
+            <h2>Booking Summary</h2>
+
+            <div class="booking-summary">
+
+                <div class="summary-row">
+                    <span>Destination</span>
+                    <strong>{{ destination|default("Kerala") }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Travelers</span>
+                    <strong>{{ people|default("1") }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Travel Date</span>
+                    <strong>{{ date|default("Not selected") }}</strong>
+                </div>
+
+                <div class="summary-row">
+                    <span>Total Amount</span>
+                    <span class="amount">
+                        ₹{{ amount|default("10,999") }}
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PAYMENT FORM -->
+
+        <div class="payment-card">
+
+            <h2>Payment Details</h2>
+
+            <form onsubmit="showPaymentSuccess(event)">
+
+                <label>Payment Method</label>
+
+                <div class="payment-method">
+
+                    <label>
+                        <input type="radio"
+                               name="payment_method"
+                               value="card"
+                               checked>
+                        Card
+                    </label>
+
+                    <label>
+                        <input type="radio"
+                               name="payment_method"
+                               value="upi">
+                        UPI
+                    </label>
+
+                </div>
+
+
+                <label>Card / UPI Details</label>
+
+                <input
+                    type="text"
+                    id="payment_details"
+                    placeholder="Enter card number or UPI ID"
+                    required>
+
+
+                <br><br>
+
+
+                <label>Name on Payment</label>
+
+                <input
+                    type="text"
+                    placeholder="Enter your name"
+                    required>
+
+
+                <button type="submit" class="pay-button">
+                    Pay Now
+                </button>
+
+            </form>
+
+
+            <p class="secure-message">
+                🔒 This is a simulated payment page for the project.
+            </p>
+
+
+            <div id="successMessage"
+                 class="success-box"
+                 style="display:none;">
+
+                <h3>✓ Payment Successful!</h3>
+
+                <p>
+                    Your travel booking payment has been completed.
+                </p>
+
+                <a href="/dashboard">
+                    Go to Dashboard
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <h3>TravelBook</h3>
+
+    <p>
+        Explore. Experience. Remember.
+    </p>
+
+</footer>
+
+
+<script>
+
+    function showPaymentSuccess(event) {
+
+        event.preventDefault();
+
+        document.getElementById("successMessage").style.display = "block";
+
+        window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth"
+        });
+    }
+
+</script>
+
+</body>
+</html>

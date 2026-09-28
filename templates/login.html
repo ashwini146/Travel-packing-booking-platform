@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Login | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            background: #f6f8fb;
+        }
+
+        .auth-page {
+            min-height: 75vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        .login-container {
+            width: 900px;
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 12px 35px rgba(0,0,0,.08);
+        }
+
+        /* LEFT SIDE */
+
+        .login-image {
+            min-height: 560px;
+
+            background:
+                linear-gradient(
+                    rgba(10,35,60,.35),
+                    rgba(10,35,60,.75)
+                ),
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=85");
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: flex-end;
+            padding: 40px;
+        }
+
+        .login-image-content {
+            color: white;
+        }
+
+        .login-image-content small {
+            color: #dcecff;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .login-image-content h2 {
+            color: white;
+            font-size: 34px;
+            margin: 10px 0;
+        }
+
+        .login-image-content p {
+            color: white;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        /* RIGHT SIDE */
+
+        .login-form-area {
+            padding: 50px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .login-label {
+            color: #1677c8;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .login-form-area h1 {
+            color: #12355b;
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        .login-description {
+            color: #667085;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .login-form {
+            width: 100%;
+            max-width: none;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .login-group {
+            margin-bottom: 20px;
+        }
+
+        .login-group label {
+            display: block;
+            color: #344054;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 7px;
+        }
+
+        .login-group input {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d0d5dd;
+            border-radius: 7px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .login-group input:focus {
+            border-color: #1677c8;
+            box-shadow: 0 0 0 3px rgba(22,119,200,.10);
+        }
+
+        .login-button {
+            width: 100%;
+            margin: 5px 0 0;
+            padding: 14px;
+            background: #1677c8;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background: #0e5f9f;
+        }
+
+        .register-text {
+            text-align: center;
+            margin-top: 25px;
+            color: #667085;
+            font-size: 14px;
+        }
+
+        .register-link {
+            color: #1677c8;
+            font-weight: bold;
+        }
+
+        @media (max-width: 750px) {
+
+            .login-container {
+                grid-template-columns: 1fr;
+            }
+
+            .login-image {
+                min-height: 280px;
+            }
+
+            .login-form-area {
+                padding: 35px 25px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+        <a href="/packages">Packages</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+
+    </nav>
+
+</header>
+
+
+<div class="auth-page">
+
+    <div class="login-container">
+
+
+        <!-- IMAGE -->
+
+        <div class="login-image">
+
+            <div class="login-image-content">
+
+                <small>
+                    WELCOME BACK
+                </small>
+
+                <h2>
+                    Your Journey Awaits
+                </h2>
+
+                <p>
+                    Sign in to continue planning your
+                    next adventure with TravelBook.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN FORM -->
+
+        <div class="login-form-area">
+
+            <div class="login-label">
+                TRAVELBOOK ACCOUNT
+            </div>
+
+            <h1>
+                Welcome Back
+            </h1>
+
+            <p class="login-description">
+                Sign in to access your account and
+                manage your travel bookings.
+            </p>
+
+
+            <form
+                class="login-form"
+                method="POST"
+                action="/login"
+            >
+
+
+                <div class="login-group">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="login-group">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Sign In
+                </button>
+
+
+            </form>
+
+
+            <p class="register-text">
+
+                Don't have an account?
+
+                <a
+                    href="/register"
+                    class="register-link"
+                >
+                    Create an account
+                </a>
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <h3>
+        TravelBook
+    </h3>
+
+    <p>
+        Explore • Travel • Experience
+    </p>
+
+    <p>
+        © 2026 Travel Package Booking
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

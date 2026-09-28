@@ -1,0 +1,481 @@
+/* ========================================
+   TRAVEL PACKAGE BOOKING
+   PROFESSIONAL COMPLETE CSS
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f6f8fb;
+    color: #1f2937;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* ========================================
+   HEADER
+======================================== */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 7%;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.logo {
+    font-size: 26px;
+    font-weight: 700;
+    color: #12355b;
+}
+
+header nav {
+    background: transparent;
+    padding: 0;
+    border: none;
+}
+
+header nav a {
+    color: #12355b;
+    margin-left: 28px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+header nav a:hover {
+    color: #1677c8;
+}
+
+
+/* ========================================
+   OLD PAGE HEADER SUPPORT
+======================================== */
+
+body > h1 {
+    margin: 0;
+    padding: 24px;
+    background: #12355b;
+    color: white;
+    text-align: center;
+    font-size: 32px;
+}
+
+body > nav {
+    background: white;
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+body > nav a {
+    color: #12355b;
+    margin: 0 15px;
+    font-weight: 600;
+}
+
+body > nav a:hover {
+    color: #1677c8;
+}
+
+
+/* ========================================
+   HERO
+======================================== */
+
+.hero {
+    min-height: 570px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+
+    background:
+        linear-gradient(
+            rgba(10, 35, 60, 0.68),
+            rgba(10, 35, 60, 0.68)
+        ),
+        url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1800&q=85");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-content {
+    max-width: 680px;
+    margin-left: 8%;
+    color: white;
+}
+
+.hero-content .small-title {
+    color: #dcecff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hero-content h1 {
+    background: transparent;
+    padding: 0;
+    margin: 15px 0;
+    color: white;
+    font-size: 58px;
+    line-height: 1.08;
+    text-align: left;
+}
+
+.hero-content p {
+    color: white;
+    font-size: 18px;
+    line-height: 1.7;
+    max-width: 620px;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+button,
+.main-button {
+    background: #1677c8;
+    color: white;
+    border: none;
+    padding: 13px 26px;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover,
+.main-button:hover {
+    background: #0e5f9f;
+}
+
+
+/* ========================================
+   INTRODUCTION
+======================================== */
+
+.intro {
+    max-width: 760px;
+    margin: auto;
+    padding: 80px 20px 55px;
+    text-align: center;
+}
+
+.section-label {
+    color: #1677c8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.intro h2,
+.home-destinations h2,
+.why-us h2 {
+    color: #12355b;
+    font-size: 34px;
+    margin: 10px 0 18px;
+}
+
+.intro p {
+    color: #667085;
+    line-height: 1.8;
+}
+
+
+/* ========================================
+   DESTINATIONS
+======================================== */
+
+.home-destinations {
+    padding: 65px 6%;
+    text-align: center;
+}
+
+.home-cards {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.home-card {
+    width: 330px;
+    background: white;
+    text-align: left;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    transition: 0.25s;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
+}
+
+.card-image {
+    height: 210px;
+    background-size: cover;
+    background-position: center;
+}
+
+.goa-image {
+    background-image:
+        url("https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80");
+}
+
+.manali-image {
+    background-image:
+        url("https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=900&q=80");
+}
+
+.kerala-image {
+    background-image:
+        url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80");
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.card-content h3 {
+    color: #12355b;
+    font-size: 24px;
+    margin: 0 0 10px;
+}
+
+.card-content p {
+    color: #667085;
+    line-height: 1.6;
+}
+
+.card-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 22px;
+}
+
+.card-bottom span {
+    color: #12355b;
+    font-weight: 700;
+}
+
+.card-bottom a {
+    color: #1677c8;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   PACKAGE CARDS
+======================================== */
+
+.package {
+    width: 350px;
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 30px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    text-align: center;
+}
+
+.package h3 {
+    color: #12355b;
+    font-size: 25px;
+}
+
+.package p {
+    color: #667085;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   SEARCH
+======================================== */
+
+#search {
+    width: 350px;
+    max-width: 85%;
+    padding: 13px 16px;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    font-size: 15px;
+}
+
+
+/* ========================================
+   FORMS
+======================================== */
+
+form {
+    width: 430px;
+    max-width: 90%;
+    margin: 35px auto;
+    padding: 35px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+    text-align: left;
+}
+
+form label {
+    color: #12355b;
+    font-weight: 600;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-top: 7px;
+    border: 1px solid #d0d5dd;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: #1677c8;
+}
+
+
+/* ========================================
+   WHY US
+======================================== */
+
+.why-us {
+    background: white;
+    padding: 80px 7%;
+    text-align: center;
+}
+
+.why-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 35px;
+}
+
+.why-container > div {
+    width: 280px;
+    padding: 25px;
+}
+
+.why-container h3 {
+    color: #12355b;
+}
+
+.why-container p {
+    color: #667085;
+    line-height: 1.7;
+}
+
+
+/* ========================================
+   CALL TO ACTION
+======================================== */
+
+.home-cta {
+    padding: 85px 20px;
+    background: #12355b;
+    text-align: center;
+}
+
+.home-cta h2 {
+    color: white;
+    font-size: 34px;
+}
+
+.home-cta p {
+    color: #dce6f2;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+footer {
+    background: #0b2138;
+    color: white;
+    padding: 35px 20px;
+    margin-top: 60px;
+    text-align: center;
+}
+
+footer h3 {
+    color: white;
+}
+
+footer p {
+    color: #cbd5e1;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+    header {
+        display: block;
+        text-align: center;
+        padding: 18px;
+    }
+
+    header nav {
+        margin-top: 15px;
+    }
+
+    header nav a {
+        margin: 0 8px;
+        font-size: 14px;
+    }
+
+    .hero {
+        min-height: 500px;
+    }
+
+    .hero-content {
+        margin: 0 25px;
+    }
+
+    .hero-content h1 {
+        font-size: 40px;
+    }
+
+    .home-card {
+        width: 92%;
+    }
+
+    .package {
+        width: 90%;
+    }
+
+    form {
+        width: 90%;
+    }
+}

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FAQ | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: #eef3f5;
+            color: #26343c;
+        }
+
+        /* =========================
+           FAQ HERO
+        ========================= */
+
+        .faq-hero {
+
+            background: #263f4d;
+
+            padding: 75px 25px 90px;
+
+            color: white;
+
+            text-align: center;
+        }
+
+        .faq-hero small {
+
+            color: #d8c39a;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+        }
+
+        .faq-hero h1 {
+
+            margin: 14px 0;
+
+            font-size: 46px;
+
+            line-height: 1.15;
+        }
+
+        .faq-hero p {
+
+            max-width: 650px;
+
+            margin: auto;
+
+            color: #dce5e9;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+        }
+
+
+        /* =========================
+           FAQ CONTAINER
+        ========================= */
+
+        .faq-container {
+
+            width: 90%;
+
+            max-width: 1000px;
+
+            margin: -45px auto 80px;
+
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* =========================
+           SEARCH
+        ========================= */
+
+        .faq-search {
+
+            background: white;
+
+            padding: 25px;
+
+            box-shadow:
+                0 10px 30px rgba(30,45,55,.10);
+
+            margin-bottom: 35px;
+        }
+
+        .faq-search input {
+
+            width: 100%;
+
+            height: 50px;
+
+            padding: 0 17px;
+
+            border: 1px solid #d5dce0;
+
+            outline: none;
+
+            font-size: 15px;
+
+            color: #26343c;
+        }
+
+        .faq-search input:focus {
+
+            border-color: #315c67;
+
+            box-shadow:
+                0 0 0 3px rgba(49,92,103,.08);
+        }
+
+
+        /* =========================
+           CATEGORY
+        ========================= */
+
+        .faq-category {
+
+            margin-bottom: 38px;
+        }
+
+        .faq-category h2 {
+
+            margin: 0 0 15px;
+
+            color: #263f4d;
+
+            font-size: 22px;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           QUESTIONS
+        ========================= */
+
+        .faq-item {
+
+            background: white;
+
+            margin-bottom: 10px;
+
+            border: 1px solid #e0e5e8;
+        }
+
+        .faq-question {
+
+            width: 100%;
+
+            padding: 20px 22px;
+
+            border: none;
+
+            background: white;
+
+            color: #26343c;
+
+            text-align: left;
+
+            font-family: inherit;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+        }
+
+        .faq-question:hover {
+
+            background: #f7f9fa;
+        }
+
+        .faq-icon {
+
+            color: #315c67;
+
+            font-size: 22px;
+
+            font-weight: 400;
+
+            transition: .2s;
+        }
+
+        .faq-answer {
+
+            display: none;
+
+            padding: 0 22px 20px;
+
+            color: #69757c;
+
+            font-size: 14px;
+
+            line-height: 1.8;
+        }
+
+        .faq-item.active .faq-answer {
+
+            display: block;
+        }
+
+        .faq-item.active .faq-icon {
+
+            transform: rotate(45deg);
+        }
+
+
+        /* =========================
+           BOTTOM CTA
+        ========================= */
+
+        .faq-cta {
+
+            margin-top: 50px;
+
+            padding: 45px 30px;
+
+            background: #dfe8e8;
+
+            text-align: center;
+        }
+
+        .faq-cta h2 {
+
+            margin: 0 0 10px;
+
+            color: #263f4d;
+
+            font-size: 26px;
+        }
+
+        .faq-cta p {
+
+            margin: 0 auto 22px;
+
+            max-width: 600px;
+
+            color: #69757c;
+
+            font-size: 14px;
+
+            line-height: 1.7;
+        }
+
+        .faq-cta a {
+
+            display: inline-block;
+
+            padding: 13px 25px;
+
+            background: #263f4d;
+
+            color: white;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 700;
+        }
+
+        .faq-cta a:hover {
+
+            background: #315c67;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .faq-hero h1 {
+                font-size: 35px;
+            }
+
+            .faq-container {
+                width: 94%;
+            }
+
+            .faq-question {
+                padding: 17px;
+                font-size: 14px;
+            }
+
+            .faq-answer {
+                padding: 0 17px 17px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/packages">
+            Packages
+        </a>
+
+        <a href="/dashboard">
+            Dashboard
+        </a>
+
+        <a href="/reviews">
+            Reviews
+        </a>
+
+        <a href="/contact">
+            Contact
+        </a>
+
+        <a href="/about">
+            About
+        </a>
+
+        <a href="/faq">
+            FAQ
+        </a>
+
+        <a href="/logout">
+            Logout
+        </a>
+
+    </nav>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="faq-hero">
+
+    <small>
+        TravelBook Help Centre
+    </small>
+
+    <h1>
+        Frequently Asked Questions
+    </h1>
+
+    <p>
+        Find quick answers about packages, bookings,
+        payments and managing your TravelBook account.
+    </p>
+
+</section>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+
+<main class="faq-container">
+
+
+    <!-- SEARCH -->
+
+    <div class="faq-search">
+
+        <input
+            type="text"
+            id="faqSearch"
+            placeholder="Search your question..."
+            onkeyup="searchFAQ()"
+        >
+
+    </div>
+
+
+    <!-- BOOKING QUESTIONS -->
+
+    <section class="faq-category">
+
+        <h2>
+            Booking & Packages
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                How do I book a travel package?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Go to the Packages page, select a destination,
+                view the package details and choose the booking
+                option. Enter your travel information and submit
+                the booking form.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                What destinations are available?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                TravelBook currently provides packages for
+                Goa, Manali and Kerala.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                Can I make more than one booking?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Yes. You can create multiple bookings using
+                the booking form. Your bookings can be viewed
+                in the Booking History section of your dashboard.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ACCOUNT QUESTIONS -->
+
+    <section class="faq-category">
+
+        <h2>
+            Account & Dashboard
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                Do I need an account to use TravelBook?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                You can explore travel packages without an account.
+                Registration and login are required to access your
+                personal dashboard and account features.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                Where can I see my bookings?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                After logging in, open your Dashboard.
+                Your latest booking and complete Booking History
+                are displayed there.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                What do the booking statuses mean?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Pending means the booking is awaiting confirmation.
+                Confirmed means the booking has been confirmed.
+                Cancelled means the booking has been cancelled.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PAYMENT QUESTIONS -->
+
+    <section class="faq-category">
+
+        <h2>
+            Payment
+        </h2>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                How is the booking amount calculated?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                The amount is calculated using the selected
+                destination package price multiplied by the
+                number of travellers.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                What payment methods are available?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                The current project includes a simulated payment
+                interface with Card and UPI options.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button
+                class="faq-question"
+                onclick="toggleFAQ(this)"
+            >
+
+                Is the payment system real?
+
+                <span class="faq-icon">
+                    +
+                </span>
+
+            </button>
+
+            <div class="faq-answer">
+
+                No. The current project uses a simulated payment
+                interface for demonstration purposes. A real
+                payment gateway has not been connected.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SUPPORT CTA -->
+
+    <section class="faq-cta">
+
+        <h2>
+            Still have a question?
+        </h2>
+
+        <p>
+            If you couldn't find the information you were
+            looking for, contact the TravelBook team.
+        </p>
+
+        <a href="/contact">
+            Contact Us
+        </a>
+
+    </section>
+
+
+</main>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+    <h3>
+        TravelBook
+    </h3>
+
+    <p>
+        Explore. Experience. Remember.
+    </p>
+
+</footer>
+
+
+<script>
+
+function toggleFAQ(button) {
+
+    const item = button.parentElement;
+
+    item.classList.toggle("active");
+
+}
+
+
+/* =========================
+   SEARCH FAQ
+========================= */
+
+function searchFAQ() {
+
+    const search =
+        document
+        .getElementById("faqSearch")
+        .value
+        .toLowerCase();
+
+    const items =
+        document.querySelectorAll(".faq-item");
+
+    items.forEach(function(item) {
+
+        const question =
+            item
+            .querySelector(".faq-question")
+            .innerText
+            .toLowerCase();
+
+        const answer =
+            item
+            .querySelector(".faq-answer")
+            .innerText
+            .toLowerCase();
+
+        if (
+            question.includes(search) ||
+            answer.includes(search)
+        ) {
+
+            item.style.display = "block";
+
+        } else {
+
+            item.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login Successful</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <h1>🌍 Travel Package Booking</h1>
+
+    <nav>
+        <a href="/">Home</a> |
+        <a href="/packages">Packages</a> |
+        <a href="/login">Login</a> |
+        <a href="/register">Register</a>
+    </nav>
+
+    <hr>
+
+    <h2>🎉 Login Successful!</h2>
+
+    <p>Welcome back, {{ email }}!</p>
+
+    <p>You can now explore our travel packages and book your trip.</p>
+
+    <br>
+
+    <a href="/packages">
+        <button>✈️ Explore Packages</button>
+    </a>
+
+</body>
+</html>

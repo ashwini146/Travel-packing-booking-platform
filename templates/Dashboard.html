@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        .dashboard-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .dashboard-hero {
+            background: #12355b;
+            color: white;
+            padding: 40px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-hero h1 {
+            margin: 0 0 10px;
+            font-size: 38px;
+        }
+
+        .dashboard-hero p {
+            color: #dce6f2;
+        }
+
+        .dashboard-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+        }
+
+        .dashboard-card h2 {
+            color: #12355b;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+
+        .booking-detail {
+            padding: 15px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .booking-detail:last-child {
+            border-bottom: none;
+        }
+
+        .booking-detail strong {
+            display: block;
+            color: #12355b;
+            margin-bottom: 5px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            background: #d1fae5;
+            color: #047857;
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .history-table th {
+            background: #12355b;
+            color: white;
+            padding: 14px;
+            text-align: left;
+        }
+
+        .history-table td {
+            padding: 14px;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .history-table tr:hover {
+            background: #f6f8fb;
+        }
+
+        .history-status {
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .action-buttons {
+            margin-top: 25px;
+        }
+
+        .action-buttons a {
+            display: inline-block;
+            background: #1677c8;
+            color: white;
+            padding: 12px 20px;
+            margin-right: 10px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .action-buttons a:hover {
+            background: #0e5f9f;
+        }
+
+        .no-history {
+            padding: 20px;
+            background: #f6f8fb;
+            border-radius: 8px;
+            color: #667085;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+
+            .dashboard-container {
+                width: 94%;
+            }
+
+            .dashboard-hero h1 {
+                font-size: 30px;
+            }
+
+            .history-table {
+                font-size: 13px;
+            }
+
+            .history-table th,
+            .history-table td {
+                padding: 9px;
+            }
+
+            .table-wrapper {
+                overflow-x: auto;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+        <a href="/">Home</a>
+        <a href="/packages">Packages</a>
+        <a href="/booking">Book Now</a>
+        <a href="/reviews">Reviews</a>
+        <a href="/contact">Contact</a>
+        <a href="/about">About</a>
+        <a href="/faq">FAQ</a>
+        <a href="/logout">Logout</a>
+    </nav>
+
+</header>
+
+
+<div class="dashboard-container">
+
+    <!-- DASHBOARD HEADER -->
+
+    <div class="dashboard-hero">
+
+        <h1>My Dashboard</h1>
+
+        <p>
+            Welcome back! Manage your travel bookings from one place.
+        </p>
+
+    </div>
+
+
+    <!-- ACCOUNT INFORMATION -->
+
+    <div class="dashboard-card">
+
+        <h2>Account Information</h2>
+
+        <div class="booking-detail">
+
+            <strong>Email</strong>
+
+            {{ email }}
+
+        </div>
+
+    </div>
+
+
+    <!-- LATEST BOOKING -->
+
+    <div class="dashboard-card">
+
+        <h2>My Latest Booking</h2>
+
+        {% if booking %}
+
+            <div class="booking-detail">
+                <strong>Name</strong>
+                {{ booking.name }}
+            </div>
+
+            <div class="booking-detail">
+                <strong>Email</strong>
+                {{ booking.email }}
+            </div>
+
+            <div class="booking-detail">
+                <strong>Phone</strong>
+                {{ booking.phone }}
+            </div>
+
+            <div class="booking-detail">
+                <strong>Destination</strong>
+                {{ booking.destination }}
+            </div>
+
+            <div class="booking-detail">
+                <strong>Number of People</strong>
+                {{ booking.people }}
+            </div>
+
+            <div class="booking-detail">
+                <strong>Travel Date</strong>
+                {{ booking.date }}
+            </div>
+
+            <div class="booking-detail">
+
+                <strong>Booking Status</strong>
+
+                <span class="status">
+                    ✓ {{ booking.status }}
+                </span>
+
+            </div>
+
+            <div class="action-buttons">
+
+                <a href="/booking">
+                    Make New Booking
+                </a>
+
+                <a href="/packages">
+                    Explore Packages
+                </a>
+
+                <a href="/payment">
+                    Make Payment
+                </a>
+
+            </div>
+
+        {% else %}
+
+            <div class="no-history">
+                You don't have any booking yet.
+            </div>
+
+            <div class="action-buttons">
+
+                <a href="/booking">
+                    Make Your First Booking
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- BOOKING HISTORY -->
+
+    <div class="dashboard-card">
+
+        <h2>📋 Booking History</h2>
+
+        {% if bookings %}
+
+            <div class="table-wrapper">
+
+                <table class="history-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Destination</th>
+                            <th>People</th>
+                            <th>Travel Date</th>
+                            <th>Status</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        {% for item in bookings %}
+
+                        <tr>
+
+                            <td>
+                                #{{ item.id }}
+                            </td>
+
+                            <td>
+                                {{ item.destination }}
+                            </td>
+
+                            <td>
+                                {{ item.people }}
+                            </td>
+
+                            <td>
+                                {{ item.date }}
+                            </td>
+
+                            <td>
+
+                                <span class="history-status">
+                                    {{ item.status }}
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="no-history">
+                No booking history available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <h3>TravelBook</h3>
+
+    <p>
+        Explore. Experience. Remember.
+    </p>
+
+</footer>
+
+</body>
+</html>
+

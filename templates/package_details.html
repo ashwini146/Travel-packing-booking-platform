@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{{ destination }} Package | TravelBook</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+
+        body {
+            background: #f6f8fb;
+        }
+
+        /* HERO */
+
+        .package-hero {
+            min-height: 520px;
+
+            background:
+                linear-gradient(
+                    rgba(10,35,60,.35),
+                    rgba(10,35,60,.75)
+                ),
+                {% if destination|lower == "goa" %}
+                url("https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=1800&q=85");
+                {% elif destination|lower == "manali" %}
+                url("https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1800&q=85");
+                {% else %}
+                url("https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=1800&q=85");
+                {% endif %}
+
+            background-size: cover;
+            background-position: center;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .package-hero-content {
+            color: white;
+            max-width: 750px;
+            padding: 30px;
+        }
+
+        .package-hero-content .label {
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #dcecff;
+        }
+
+        .package-hero-content h1 {
+            color: white;
+            font-size: 58px;
+            margin: 15px 0;
+        }
+
+        .package-hero-content p {
+            color: white;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+
+        /* INTRO */
+
+        .package-intro {
+            max-width: 850px;
+            margin: auto;
+            padding: 75px 20px 50px;
+            text-align: center;
+        }
+
+        .package-intro .label {
+            color: #1677c8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .package-intro h2 {
+            color: #12355b;
+            font-size: 36px;
+            margin: 12px 0 18px;
+        }
+
+        .package-intro p {
+            color: #667085;
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+
+        /* PACKAGE INFO */
+
+        .package-info {
+            max-width: 1000px;
+            margin: 0 auto 70px;
+
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 20px;
+
+            padding: 0 20px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 28px;
+            text-align: center;
+
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+
+            box-shadow: 0 6px 20px rgba(0,0,0,.06);
+        }
+
+        .info-card .icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .info-card h3 {
+            color: #12355b;
+            margin: 8px 0;
+        }
+
+        .info-card p {
+            color: #667085;
+            margin: 0;
+        }
+
+
+        /* EXPERIENCE */
+
+        .experience-section {
+            background: white;
+            padding: 80px 6%;
+            text-align: center;
+        }
+
+        .experience-section .label {
+            color: #1677c8;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .experience-section h2 {
+            color: #12355b;
+            font-size: 36px;
+            margin: 10px 0 40px;
+        }
+
+        .experience-grid {
+            max-width: 1100px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 20px;
+        }
+
+        .experience-card {
+            background: #f6f8fb;
+
+            border-radius: 12px;
+            overflow: hidden;
+
+            border: 1px solid #e5e7eb;
+
+            transition: .25s;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-6px);
+
+            box-shadow:
+                0 12px 28px rgba(0,0,0,.10);
+        }
+
+        .experience-image {
+            height: 180px;
+
+            background-size: cover;
+            background-position: center;
+        }
+
+        .beach {
+            background-image:
+            url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .moments {
+            background-image:
+            url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .stay {
+            background-image:
+            url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .explore {
+            background-image:
+            url("https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=700&q=80");
+        }
+
+        .experience-content {
+            padding: 22px;
+        }
+
+        .experience-content h3 {
+            color: #12355b;
+            margin: 0 0 10px;
+        }
+
+        .experience-content p {
+            color: #667085;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+
+        /* BOOKING SECTION */
+
+        .booking-section {
+            max-width: 1100px;
+
+            margin: 70px auto;
+
+            padding: 45px;
+
+            background: #12355b;
+
+            border-radius: 16px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 30px;
+        }
+
+        .booking-text .booking-label {
+            color: #9ed0f5;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .booking-text h2 {
+            color: white;
+            font-size: 30px;
+            margin: 10px 0;
+        }
+
+        .booking-text p {
+            color: #dce6f2;
+        }
+
+        .booking-price {
+            text-align: right;
+        }
+
+        .booking-price span {
+            display: block;
+            color: #cbd5e1;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        .booking-price strong {
+            display: block;
+            color: white;
+            font-size: 32px;
+            margin: 5px 0 15px;
+        }
+
+        .book-button {
+            background: #1677c8;
+            color: white;
+            border: none;
+
+            padding: 13px 22px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+        }
+
+        .book-button:hover {
+            background: #0e5f9f;
+        }
+
+
+        /* BACK */
+
+        .back-link {
+            display: block;
+
+            width: fit-content;
+
+            margin: 0 auto 70px;
+
+            color: #1677c8;
+
+            font-weight: bold;
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .package-hero-content h1 {
+                font-size: 42px;
+            }
+
+            .package-info {
+                grid-template-columns: 1fr;
+            }
+
+            .experience-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .booking-section {
+                margin: 50px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .booking-price {
+                text-align: center;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .experience-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+    <div class="logo">
+        TravelBook
+    </div>
+
+    <nav>
+
+        <a href="/">Home</a>
+
+        <a href="/packages">Packages</a>
+
+        <a href="/login">Login</a>
+
+        <a href="/register">Register</a>
+
+    </nav>
+
+</header>
+
+
+<!-- HERO -->
+
+<section class="package-hero">
+
+    <div class="package-hero-content">
+
+        <div class="label">
+            TRAVELBOOK DESTINATION
+        </div>
+
+        <h1>
+            {{ emoji }} {{ destination }}
+        </h1>
+
+        <p>
+            {{ description }}
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- INTRO -->
+
+<section class="package-intro">
+
+    <div class="label">
+        YOUR JOURNEY STARTS HERE
+    </div>
+
+    <h2>
+        Imagine Your Journey
+    </h2>
+
+    <p>
+        Discover beautiful places, create unforgettable
+        memories and enjoy a comfortable travel experience
+        with our carefully planned {{ destination }} package.
+    </p>
+
+</section>
+
+
+<!-- PACKAGE INFORMATION -->
+
+<section class="package-info">
+
+    <div class="info-card">
+
+        <div class="icon">
+            📅
+        </div>
+
+        <h3>
+            Duration
+        </h3>
+
+        <p>
+            {{ duration }}
+        </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <div class="icon">
+            🏨
+        </div>
+
+        <h3>
+            Comfortable Stay
+        </h3>
+
+        <p>
+            Quality accommodation
+        </p>
+
+    </div>
+
+
+    <div class="info-card">
+
+        <div class="icon">
+            ✈️
+        </div>
+
+        <h3>
+            Easy Travel
+        </h3>
+
+        <p>
+            Planned travel experience
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- EXPERIENCE -->
+
+<section class="experience-section">
+
+    <div class="label">
+        EXPERIENCE {{ destination|upper }}
+    </div>
+
+    <h2>
+        What You'll Experience
+    </h2>
+
+
+    <div class="experience-grid">
+
+
+        <div class="experience-card">
+
+            <div class="experience-image beach"></div>
+
+            <div class="experience-content">
+
+                <h3>
+                    Beautiful Beaches
+                </h3>
+
+                <p>
+                    Relax, explore and enjoy
+                    beautiful destinations.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="experience-card">
+
+            <div class="experience-image moments"></div>
+
+            <div class="experience-content">
+
+                <h3>
+                    Memorable Moments
+                </h3>
+
+                <p>
+                    Create wonderful memories
+                    during your journey.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="experience-card">
+
+            <div class="experience-image stay"></div>
+
+            <div class="experience-content">
+
+                <h3>
+                    Comfortable Stay
+                </h3>
+
+                <p>
+                    Enjoy a relaxing and comfortable
+                    accommodation experience.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="experience-card">
+
+            <div class="experience-image explore"></div>
+
+            <div class="experience-content">
+
+                <h3>
+                    Explore More
+                </h3>
+
+                <p>
+                    Discover new places and enjoy
+                    exciting experiences.
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- BOOKING -->
+
+<section class="booking-section">
+
+
+    <div class="booking-text">
+
+        <div class="booking-label">
+            YOUR NEXT ADVENTURE
+        </div>
+
+        <h2>
+            Ready to explore {{ destination }}?
+        </h2>
+
+        <p>
+            Your next adventure is just one booking away.
+        </p>
+
+    </div>
+
+
+    <div class="booking-price">
+
+        <span>
+            STARTING FROM
+        </span>
+
+
+        {% if destination|lower == "goa" %}
+
+            <strong>
+                ₹8,999
+            </strong>
+
+        {% elif destination|lower == "manali" %}
+
+            <strong>
+                ₹12,999
+            </strong>
+
+        {% else %}
+
+            <strong>
+                ₹10,999
+            </strong>
+
+        {% endif %}
+
+
+        <a href="/booking">
+
+            <button class="book-button">
+                Book This Package →
+            </button>
+
+        </a>
+
+    </div>
+
+
+</section>
+
+
+<!-- BACK -->
+
+<a href="/packages" class="back-link">
+    ← Back to Packages
+</a>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <h3>
+        TravelBook
+    </h3>
+
+    <p>
+        Explore • Travel • Experience
+    </p>
+
+    <p>
+        © 2026 Travel Package Booking
+    </p>
+
+</footer>
+
+
+</body>
+
+</html>

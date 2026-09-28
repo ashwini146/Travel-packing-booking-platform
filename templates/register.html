@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | TravelBook</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            background:
+                linear-gradient(rgba(15, 38, 52, 0.72), rgba(15, 38, 52, 0.82)),
+                url("https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1600&q=80")
+                center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .register-wrapper {
+            width: 100%;
+            max-width: 950px;
+            min-height: 560px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* LEFT SIDE */
+
+        .register-info {
+            background:
+                linear-gradient(rgba(19, 61, 78, 0.88), rgba(19, 61, 78, 0.92)),
+                url("https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=900&q=80")
+                center/cover;
+            color: white;
+            padding: 55px 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 45px;
+        }
+
+        .logo span {
+            color: #d9c7a1;
+        }
+
+        .register-info h1 {
+            font-size: 42px;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .register-info p {
+            color: #dbe7eb;
+            font-size: 16px;
+            line-height: 1.7;
+            max-width: 380px;
+        }
+
+        .travel-points {
+            margin-top: 35px;
+        }
+
+        .travel-points div {
+            margin: 14px 0;
+            font-size: 15px;
+        }
+
+        /* RIGHT SIDE */
+
+        .register-form {
+            padding: 55px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .register-form h2 {
+            color: #173b52;
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #777;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            color: #344b59;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px 15px;
+            border: 1px solid #d5dde1;
+            border-radius: 10px;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #2d6878;
+            box-shadow: 0 0 0 3px rgba(45, 104, 120, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            background: #173b52;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #285d70;
+            transform: translateY(-1px);
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 22px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            color: #173b52;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .login-text a:hover {
+            text-decoration: underline;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .back-home a {
+            color: #777;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        @media (max-width: 750px) {
+            .register-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .register-info {
+                padding: 35px;
+                min-height: 300px;
+            }
+
+            .register-info h1 {
+                font-size: 32px;
+            }
+
+            .logo {
+                margin-bottom: 25px;
+            }
+
+            .travel-points {
+                display: none;
+            }
+
+            .register-form {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="register-wrapper">
+
+        <!-- LEFT -->
+        <div class="register-info">
+
+            <div class="logo">
+                Travel<span>Book</span>
+            </div>
+
+            <h1>Start your journey.</h1>
+
+            <p>
+                Create your TravelBook account and discover beautiful
+                destinations, exciting packages and memorable experiences.
+            </p>
+
+            <div class="travel-points">
+                <div>✦ Explore travel packages</div>
+                <div>✦ Manage your bookings easily</div>
+                <div>✦ Track your booking status</div>
+                <div>✦ Plan your next adventure</div>
+            </div>
+
+        </div>
+
+
+        <!-- RIGHT -->
+        <div class="register-form">
+
+            <h2>Create Account</h2>
+
+            <p class="subtitle">
+                Join TravelBook and start planning your trip.
+            </p>
+
+            <form method="POST" action="/register">
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+            <div class="login-text">
+                Already have an account?
+                <a href="/login">Login</a>
+            </div>
+
+            <div class="back-home">
+                <a href="/">← Back to Home</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

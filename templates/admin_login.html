@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | TravelBook</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+            background: #eef1f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .admin-page {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 600px;
+            margin: 25px;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            background: white;
+            border-radius: 22px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(24, 45, 55, 0.16);
+        }
+
+        /* LEFT */
+
+        .admin-intro {
+            background:
+                linear-gradient(
+                    rgba(20, 48, 61, 0.90),
+                    rgba(20, 48, 61, 0.94)
+                ),
+                url("https://images.unsplash.com/photo-1527631746610-bca00a040d60?auto=format&fit=crop&w=1200&q=85")
+                center/cover;
+
+            color: white;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #d2b477;
+        }
+
+        .admin-label {
+            display: inline-block;
+            margin-top: 80px;
+            color: #d2b477;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .admin-intro h1 {
+            font-size: 44px;
+            line-height: 1.12;
+            margin: 15px 0 20px;
+        }
+
+        .admin-intro p {
+            max-width: 430px;
+            color: #d5e0e4;
+            line-height: 1.7;
+            font-size: 15px;
+        }
+
+        .admin-note {
+            color: #aebfc5;
+            font-size: 12px;
+            margin-top: 35px;
+        }
+
+        /* RIGHT */
+
+        .login-area {
+            padding: 60px 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .security-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 14px;
+            background: #edf2f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 25px;
+        }
+
+        .login-area h2 {
+            color: #173b52;
+            font-size: 29px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #7b8589;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        .field {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #40535b;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            padding: 0 14px;
+            border: 1px solid #d8dfe1;
+            border-radius: 9px;
+            background: #fafbfb;
+            font-size: 14px;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #557d88;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(85, 125, 136, 0.1);
+        }
+
+        .login-button {
+            width: 100%;
+            height: 52px;
+            margin-top: 5px;
+            border: none;
+            border-radius: 9px;
+            background: #173b52;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .login-button:hover {
+            background: #285d70;
+        }
+
+        .security-text {
+            margin-top: 20px;
+            text-align: center;
+            color: #8b9498;
+            font-size: 12px;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .back-home a {
+            color: #52656c;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .back-home a:hover {
+            color: #173b52;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 750px) {
+
+            .admin-page {
+                grid-template-columns: 1fr;
+                margin: 15px;
+            }
+
+            .admin-intro {
+                min-height: 300px;
+                padding: 35px;
+            }
+
+            .admin-label {
+                margin-top: 40px;
+            }
+
+            .admin-intro h1 {
+                font-size: 32px;
+            }
+
+            .admin-note {
+                display: none;
+            }
+
+            .login-area {
+                padding: 40px 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="admin-page">
+
+        <!-- LEFT SIDE -->
+
+        <section class="admin-intro">
+
+            <div class="logo">
+                Travel<span>Book</span>
+            </div>
+
+            <div>
+
+                <div class="admin-label">
+                    Administration Portal
+                </div>
+
+                <h1>
+                    Manage every journey from one place.
+                </h1>
+
+                <p>
+                    Access bookings, users and reservation
+                    status through the TravelBook administration
+                    panel.
+                </p>
+
+            </div>
+
+            <div class="admin-note">
+                TravelBook Management System · Authorized access only
+            </div>
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+
+        <section class="login-area">
+
+            <div class="security-icon">
+                🔐
+            </div>
+
+            <h2>Admin Sign In</h2>
+
+            <p class="subtitle">
+                Enter your administrator credentials to continue.
+            </p>
+
+
+            <form method="POST" action="/admin">
+
+                <div class="field">
+
+                    <label>
+                        Admin Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="admin@travelbook.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    Sign in to Admin Panel
+                </button>
+
+            </form>
+
+
+            <div class="security-text">
+                🔒 Secure administrator access
+            </div>
+
+
+            <div class="back-home">
+
+                <a href="/">
+                    ← Return to TravelBook
+                </a>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+</html>

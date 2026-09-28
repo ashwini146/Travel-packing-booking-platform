@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Trip | TravelBook</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f5ef;
+            color: #263b42;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 6%;
+            border-bottom: 1px solid #e8e5dd;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 700;
+            color: #23454b;
+        }
+
+        .logo span {
+            color: #bd9250;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #667477;
+            font-size: 14px;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            color: #23454b;
+        }
+
+        /* PAGE */
+
+        .page {
+            max-width: 1180px;
+            margin: 45px auto;
+            padding: 0 25px;
+        }
+
+        .top {
+            margin-bottom: 32px;
+        }
+
+        .top small {
+            color: #b2874b;
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .top h1 {
+            font-size: 40px;
+            color: #23454b;
+            margin-top: 8px;
+        }
+
+        .top p {
+            color: #788284;
+            margin-top: 8px;
+        }
+
+        /* LAYOUT */
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 25px;
+            align-items: start;
+        }
+
+        .main-card,
+        .summary {
+            background: white;
+            border-radius: 18px;
+            border: 1px solid #e9e5dc;
+        }
+
+        .main-card {
+            padding: 32px;
+        }
+
+        /* SUCCESS */
+
+        .success {
+            background: #edf8f1;
+            border: 1px solid #c2e2ce;
+            color: #21623c;
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .success h3 {
+            margin-bottom: 6px;
+        }
+
+        .success a {
+            display: inline-block;
+            margin-top: 10px;
+            color: #23454b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        /* DESTINATIONS */
+
+        .section-title {
+            font-size: 19px;
+            color: #23454b;
+            margin-bottom: 17px;
+        }
+
+        .destinations {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 35px;
+        }
+
+        .destination {
+            height: 170px;
+            border-radius: 13px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: .25s;
+        }
+
+        .destination:hover {
+            transform: translateY(-3px);
+        }
+
+        .destination.selected {
+            border-color: #bd9250;
+        }
+
+        .destination img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .destination::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                transparent 35%,
+                rgba(15, 35, 40, .82)
+            );
+        }
+
+        .destination-info {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            color: white;
+            z-index: 2;
+        }
+
+        .destination-info h3 {
+            font-size: 19px;
+            margin-bottom: 4px;
+        }
+
+        .destination-info span {
+            font-size: 12px;
+            color: #e5dfd1;
+        }
+
+        /* FORM */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 13px;
+            font-weight: bold;
+            color: #46595d;
+            margin-bottom: 7px;
+        }
+
+        input {
+            height: 47px;
+            border: 1px solid #d9dfdf;
+            border-radius: 9px;
+            padding: 0 13px;
+            font-size: 14px;
+            outline: none;
+            background: #fcfcfa;
+        }
+
+        input:focus {
+            border-color: #668b89;
+            background: white;
+        }
+
+        /* SUMMARY */
+
+        .summary {
+            padding: 25px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .summary-title {
+            color: #23454b;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-image {
+            height: 155px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 18px;
+        }
+
+        .summary-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .summary-destination {
+            color: #23454b;
+            font-size: 23px;
+            font-weight: bold;
+        }
+
+        .summary-text {
+            color: #7b8587;
+            font-size: 13px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+        }
+
+        .line {
+            height: 1px;
+            background: #e8e5de;
+            margin: 16px 0;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+            font-size: 14px;
+        }
+
+        .summary-row span:first-child {
+            color: #788285;
+        }
+
+        .summary-row span:last-child {
+            color: #263b42;
+            font-weight: 600;
+        }
+
+        .reserve-btn {
+            width: 100%;
+            height: 52px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 9px;
+            background: #23454b;
+            color: white;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .reserve-btn:hover {
+            background: #315e64;
+        }
+
+        .hint {
+            text-align: center;
+            color: #929999;
+            font-size: 11px;
+            margin-top: 12px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            margin-top: 70px;
+            padding: 24px;
+            text-align: center;
+            background: #23454b;
+            color: #d2dddd;
+            font-size: 13px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 850px) {
+
+            nav {
+                padding: 0 20px;
+            }
+
+            nav div:last-child {
+                display: none;
+            }
+
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .summary {
+                position: static;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            .top h1 {
+                font-size: 30px;
+            }
+
+            .main-card {
+                padding: 22px;
+            }
+
+            .destinations {
+                grid-template-columns: 1fr;
+            }
+
+            .destination {
+                height: 150px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+
+    <div class="logo">
+        Travel<span>Book</span>
+    </div>
+
+    <div>
+        <a href="/">Home</a>
+        <a href="/packages">Packages</a>
+        <a href="/dashboard">Dashboard</a>
+        <a href="/reviews">Reviews</a>
+    </div>
+
+</nav>
+
+
+<div class="page">
+
+    <div class="top">
+
+        <small>Travel Reservation</small>
+
+        <h1>Where will you go next?</h1>
+
+        <p>
+            Choose your destination and tell us a little about your trip.
+        </p>
+
+    </div>
+
+
+    <div class="layout">
+
+
+        <!-- MAIN -->
+
+        <div class="main-card">
+
+            {% if success %}
+
+            <div class="success">
+
+                <h3>✓ Booking Created Successfully</h3>
+
+                <p>
+                    Thank you {{ name }}. Your {{ destination }}
+                    booking is now pending confirmation.
+                </p>
+
+                <a href="/dashboard">
+                    View booking →
+                </a>
+
+            </div>
+
+            {% endif %}
+
+
+            <form method="POST" action="/booking" id="bookingForm">
+
+
+                <h2 class="section-title">
+                    01 &nbsp; Choose your destination
+                </h2>
+
+
+                <div class="destinations">
+
+                    <div
+                        class="destination"
+                        data-destination="Goa"
+                        data-image="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80"
+                    >
+
+                        <img src="https://images.unsplash.com/photo-1512343879784-a960bf40e7f2?auto=format&fit=crop&w=900&q=80">
+
+                        <div class="destination-info">
+                            <h3>Goa</h3>
+                            <span>Beaches · 3 Days</span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="destination"
+                        data-destination="Manali"
+                        data-image="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80"
+                    >
+
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=900&q=80">
+
+                        <div class="destination-info">
+                            <h3>Manali</h3>
+                            <span>Mountains · 4 Days</span>
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="destination"
+                        data-destination="Kerala"
+                        data-image="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80"
+                    >
+
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?auto=format&fit=crop&w=900&q=80">
+
+                        <div class="destination-info">
+                            <h3>Kerala</h3>
+                            <span>Backwaters · 3 Days</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <input
+                    type="hidden"
+                    name="destination"
+                    id="destination"
+                    required
+                >
+
+
+                <h2 class="section-title">
+                    02 &nbsp; Traveller details
+                </h2>
+
+
+                <div class="form-grid">
+
+                    <div class="field">
+
+                        <label>Full Name</label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Email Address</label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Phone Number</label>
+
+                        <input
+                            type="tel"
+                            name="phone"
+                            placeholder="Your phone number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="field">
+
+                        <label>Number of Travelers</label>
+
+                        <input
+                            type="number"
+                            name="people"
+                            min="1"
+                            max="20"
+                            value="1"
+                            required
+                            id="people"
+                        >
+
+                    </div>
+
+
+                    <div class="field full">
+
+                        <label>Travel Date</label>
+
+                        <input
+                            type="date"
+                            name="date"
+                            required
+                            id="date"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="reserve-btn"
+                    id="reserveButton"
+                >
+                    Select a destination first
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <aside class="summary">
+
+            <h2 class="summary-title">
+                Your trip
+            </h2>
+
+
+            <div class="summary-image">
+
+                <img
+                    id="summaryImage"
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80"
+                >
+
+            </div>
+
+
+            <div
+                class="summary-destination"
+                id="summaryDestination"
+            >
+                Choose a destination
+            </div>
+
+            <div class="summary-text" id="summaryText">
+                Select one of the destinations to see your trip summary.
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <div class="summary-row">
+
+                <span>Travelers</span>
+
+                <span id="summaryPeople">
+                    1
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>Travel date</span>
+
+                <span id="summaryDate">
+                    Not selected
+                </span>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>Booking status</span>
+
+                <span>Pending</span>
+
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <button
+                type="button"
+                class="reserve-btn"
+                id="summaryButton"
+                onclick="submitBooking()"
+                disabled
+            >
+                Reserve my trip
+            </button>
+
+
+            <div class="hint">
+                No payment is required on this step.
+            </div>
+
+        </aside>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2026 TravelBook · Your journey starts here.
+</footer>
+
+
+<script>
+
+    const destinations =
+        document.querySelectorAll(".destination");
+
+    const destinationInput =
+        document.getElementById("destination");
+
+    const summaryDestination =
+        document.getElementById("summaryDestination");
+
+    const summaryImage =
+        document.getElementById("summaryImage");
+
+    const summaryText =
+        document.getElementById("summaryText");
+
+    const peopleInput =
+        document.getElementById("people");
+
+    const dateInput =
+        document.getElementById("date");
+
+    const summaryPeople =
+        document.getElementById("summaryPeople");
+
+    const summaryDate =
+        document.getElementById("summaryDate");
+
+    const reserveButton =
+        document.getElementById("reserveButton");
+
+    const summaryButton =
+        document.getElementById("summaryButton");
+
+
+    destinations.forEach(card => {
+
+        card.addEventListener("click", function() {
+
+            destinations.forEach(item => {
+                item.classList.remove("selected");
+            });
+
+            this.classList.add("selected");
+
+            const destination =
+                this.dataset.destination;
+
+            destinationInput.value =
+                destination;
+
+            summaryDestination.textContent =
+                destination;
+
+            summaryImage.src =
+                this.dataset.image;
+
+            summaryText.textContent =
+                "A beautiful " +
+                destination +
+                " experience is waiting for you.";
+
+            reserveButton.textContent =
+                "Create Booking";
+
+            summaryButton.disabled =
+                false;
+
+        });
+
+    });
+
+
+    peopleInput.addEventListener("input", function() {
+
+        summaryPeople.textContent =
+            this.value || "1";
+
+    });
+
+
+    dateInput.addEventListener("change", function() {
+
+        if (this.value) {
+
+            const date =
+                new Date(this.value + "T00:00:00");
+
+            summaryDate.textContent =
+                date.toLocaleDateString(
+                    "en-IN",
+                    {
+                        day: "2-digit",
+                        month: "short",
+                        year: "numeric"
+                    }
+                );
+
+        } else {
+
+            summaryDate.textContent =
+                "Not selected";
+
+        }
+
+    });
+
+
+    function submitBooking() {
+
+        if (!destinationInput.value) {
+
+            alert("Please choose a destination.");
+
+            return;
+
+        }
+
+        document
+            .getElementById("bookingForm")
+            .submit();
+
+    }
+
+</script>
+
+</body>
+</html>
