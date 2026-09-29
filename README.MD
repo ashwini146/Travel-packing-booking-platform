@@ -1,5 +1,9 @@
 # TravelBook - Travel Package Booking Platform
 
+## Live Website
+
+https://travel-packing-booking-platform-2.onrender.com/
+
 ## Project Description
 
 TravelBook is a web-based travel package booking platform that allows users to explore travel packages, view package details, make bookings, manage their bookings, and view payment information.
@@ -36,6 +40,7 @@ The platform also provides an admin dashboard for managing users and bookings.
 - CSS
 - JavaScript
 - Werkzeug
+- Gunicorn
 
 ## Travel Packages
 
@@ -43,12 +48,32 @@ The platform also provides an admin dashboard for managing users and bookings.
 - Manali
 - Kerala
 
-## How to Run the Project
+## Project Structure
 
-1. Install Python.
-2. Open the project folder in VS Code.
-3. Open the terminal.
-4. Install the required packages:
-
-```bash
-pip install -r requirements.txt
+```text
+Travel-packing-booking-platform/
+│
+├── static/
+│   └── css/
+│       └── style.css
+│
+├── templates/
+│   ├── admin_dashboard.html
+│   ├── admin_login.html
+│   ├── booking.html
+│   ├── Dashboard.html
+│   ├── index.html
+│   ├── login.html
+│   ├── login_success.html
+│   ├── package_details.html
+│   ├── packages.html
+│   ├── payment.html
+│   ├── register.html
+│   ├── reviews.html
+│   ├── contact.html
+│   ├── about.html
+│   └── faq.html
+│
+├── app.py
+├── requirements.txt
+└── README.md
